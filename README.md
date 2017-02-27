@@ -1,7 +1,8 @@
 AMAZON-AIO (All in one)
 =========
+WORK IN PROGRESS!
 
-A simple playbook to help get you started in AWS with Ansible.  This playbook in its current state (w/ a populated vars file) will deploy the following:
+A Training playbook to help get you started in AWS with Ansible.  This playbook in its current state (w/ a populated vars file) will deploy the following:
 
 	VPC
 	Network(s)
@@ -63,6 +64,10 @@ Or have a quick look at
 Playbook Examples
 =================
 
+Pre-Flight:
+============
+ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t pre-flight -k
+
 VPC:
 ====
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t vpc -k
@@ -79,7 +84,7 @@ Routing-Public:
 ===============
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t routing-public -k
 
-Routing-Private:
+Routing-Private: (Still a work in progess.  Will need to manually add nat-gateway id's to vars file)
 ================
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t routing-private-2a -k
 
@@ -89,9 +94,9 @@ ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t routing-private-2c -
 
 Security Groups:
 ================
-ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t sec-grp-ssh -k
+ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t sec-ssh -k
 
-ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t sec-grp-http -k
+ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t sec-http -k
 
 Elastic Load Balancers:
 =======================
@@ -101,9 +106,9 @@ ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t elb-private -k
 
 Launch configuration:
 =====================
-ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t vpc-lc-ssh -k
+ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t lc-ssh -k
 
-ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t vpc-lc-http -k
+ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t lc-http -k
 
 Auto Scaling Group:
 ===================
