@@ -1,0 +1,190 @@
+---
+- hosts: localhost
+  gather_facts: true
+  name: Amazon Preflight and Setup
+  become: yes
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: pre-flight, tags: pre-flight }
+
+- hosts: localhost
+  gather_facts: false
+  name: New AWS VPC Setup
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: vpc, tags: vpc }
+
+- hosts: localhost
+  gather_facts: false
+  name: Setup public/private subnets
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: network, tags: network }
+
+- hosts: localhost
+  gather_facts: false
+  name: Setup public routing for public subnets
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: gateways, tags: gateways }
+
+
+- hosts: localhost
+  gather_facts: false
+  name: Setup public routing for public subnets
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: routing-public, tags: routing-public }
+
+- hosts: localhost
+  gather_facts: false
+  name: Setup routing for private subnets
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+   - { role: routing-private-2a, tags: routing-private-2a }
+
+- hosts: localhost
+  gather_facts: false
+  name: Setup routing for private subnets
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: routing-private-2b, tags: routing-private-2b }
+
+- hosts: localhost
+  gather_facts: false
+  name: Setup routing for private subnets
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: routing-private-2c, tags: routing-private-2c }
+
+- hosts: localhost
+  gather_facts: false
+  name: New AWS VPC Security Group Setup w/ SSH Access
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: sec-ssh, tags: sec-ssh }
+
+- hosts: localhost
+  gather_facts: false
+  name: New AWS VPC Security Group Setup w/ ssh and http(s) Access
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: sec-http, tags: sec-http }
+
+- hosts: localhost
+  gather_facts: false
+  name: New AWS Internet-Facing Elastic Load Balancer
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: elb-public, tags: elb-public }
+
+- hosts: localhost
+  gather_facts: false
+  name: New AWS Internal Elastic Load Balancer
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: elb-private, tags: elb-private }
+
+
+- hosts: localhost
+  gather_facts: false
+  name: New AWS Launch Configuration for SSH Access
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: vpc-lc-ssh, tags: vpc-lc-ssh }
+
+- hosts: localhost
+  gather_facts: false
+  name: New AWS Launch Configuration for HTTP Access
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: vpc-lc-http, tags: vpc-lc-http }
+
+
+- hosts: localhost
+  gather_facts: false
+  name: New AWS New Auto Scaling Group for SSH launch_config
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: asg-ssh, tags: asg-ssh }
+
+- hosts: localhost
+  gather_facts: false
+  name: New AWS Auto Scaling Group for http launch_config
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: asg-http, tags: asg-http }
+
+- hosts: localhost
+  gather_facts: false
+  name: Role for random module testing
+  become: no
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - { role: test, tags: test }

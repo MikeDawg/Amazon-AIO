@@ -1,0 +1,14 @@
+---
+# tasks file for vpc
+- name: VPC - Setting up a New VPC
+  local_action:
+    module: ec2_vpc_net
+    name: "{{ vpc_name }}"
+    cidr_block: "{{ cidr_block }}"
+    region: "{{ aws_region }}"
+    tags:
+      Name: "{{ vpc_name }}"
+      Environment: Core Services
+      Services: VPC
+    tenancy: default
+  register: vpc

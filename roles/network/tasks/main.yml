@@ -1,0 +1,91 @@
+---
+# Tasks for network/subnet deployment in my VPC
+- name: Network - Gather facts about my VPC
+  local_action:
+    module: ec2_vpc_net_facts
+    region: "{{ aws_region }}"
+    filters:
+      "tag:Name": "{{ vpc_name }}"
+  register: vpcdata
+
+- name: Export VPC ID for future use
+  debug:
+   var: vpcdata.vpcs[0].id
+
+- name: Network - New Public subnet for Availability Zone 2A
+  local_action:
+    module: ec2_vpc_subnet
+    state: present
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpcdata.vpcs[0].id }}"
+    cidr: 10.15.0.0/21
+    az: us-west-2a
+    resource_tags:
+      Name: Public Subnet 2A
+      Environment: "{{ vpc_name }}"
+  register: public_subnet_2a
+
+- name: Network - New Public subnet for Availability Zone 2B
+  local_action:
+    module: ec2_vpc_subnet
+    state: present
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpcdata.vpcs[0].id }}"
+    cidr: 10.15.8.0/21
+    az: us-west-2b
+    resource_tags:
+      Name: Public Subnet 2B
+      Environment: "{{ vpc_name }}"
+  register: public_subnet_2b
+
+- name: Network - New Public subnet for Availability Zone 2C
+  local_action:
+    module: ec2_vpc_subnet
+    state: present
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpcdata.vpcs[0].id }}"
+    cidr: 10.15.16.0/21
+    az: us-west-2c
+    resource_tags:
+      Name: Public Subnet 2C
+      Environment: "{{ vpc_name }}"
+  register: public_subnet_2c
+
+- name: Network - New Private subnet for Availability Zone 2A
+  local_action:
+    module: ec2_vpc_subnet
+    state: present
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpcdata.vpcs[0].id }}"
+    cidr: 10.15.160.0/19
+    az: us-west-2a
+    resource_tags:
+      Name: Private Subnet 2A
+      Environment: "{{ vpc_name }}"
+  register: private_subnet_2a
+
+- name: Nework - New Private subnet for Availability Zone 2B
+  local_action:
+    module: ec2_vpc_subnet
+    state: present
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpcdata.vpcs[0].id }}"
+    cidr: 10.15.192.0/19
+    az: us-west-2b
+    resource_tags:
+      Name: Private Subnet 2B
+      Environment: "{{ vpc_name }}"
+  register: private_subnet_2b
+
+- name: Network - New Private subnet for Availability Zone 2C
+  local_action:
+    module: ec2_vpc_subnet
+    state: present
+    region: "{{ aws_region }}"
+    vpc_id: "{{ vpcdata.vpcs[0].id }}"
+    cidr: 10.15.224.0/19
+    az: us-west-2c
+    resource_tags:
+      Name: Private Subnet 2C
+      Environment: "{{ vpc_name }}"
+  register: private_subnet_2c

@@ -1,0 +1,84 @@
+---
+# Tasks for setting up NAT Gateways
+- name: Gateways - Gather facts about my VPC
+  local_action:
+    module: ec2_vpc_net_facts
+    region: "{{ aws_region }}"
+    filters:
+      "tag:Name": Infrastructure VPC
+  register: vpcdata
+
+- name: Export VPC ID for future use
+  debug:
+   var: vpcdata.vpcs[0].id
+
+- name: Gateways - Gather facts about public subnet 2a
+  local_action:
+    module: ec2_vpc_subnet_facts
+    region: "{{ aws_region }}"
+    filters:
+      vpc_id: "{{ vpcdata.vpcs[0].id }}"
+      "tag:Name": Public Subnet 2A
+  register: subnet_id_a
+
+- name: Export Subnet ID for future use
+  debug:
+   var: subnet_id_a.subnets[0].id
+
+- name: Gateways - NAT gateway and new EIP 1 of 3 ***These take time***
+  local_action:
+    module: ec2_vpc_nat_gateway
+    state: present
+    subnet_id: "{{ subnet_id_a.subnets[0].id }}"
+    wait: yes
+    region: "{{ aws_region }}"
+    if_exist_do_not_create: true
+  register: nat_gateway_2a
+
+- name: Gateways - Gather facts about public subnet 2b
+  local_action:
+    module: ec2_vpc_subnet_facts
+    region: "{{ aws_region }}"
+    filters:
+      vpc_id: "{{ vpcdata.vpcs[0].id }}"
+      "tag:Name": Public Subnet 2B
+  register: subnet_id_b
+
+- name: Export Subnet ID for future use
+  debug:
+   var: subnet_id_b.subnets[0].id
+
+
+- name: Gateways - NAT gateway and new EIP 2 of 3 ***These take time***
+  local_action:
+    module: ec2_vpc_nat_gateway
+    state: present
+    subnet_id: "{{ subnet_id_b.subnets[0].id }}"
+    wait: yes
+    region: "{{ aws_region }}"
+    if_exist_do_not_create: true
+  register: nat_gateway_2b
+
+- name: Gateways - Gather facts about public subnet 2b
+  local_action:
+    module: ec2_vpc_subnet_facts
+    region: "{{ aws_region }}"
+    filters:
+      vpc_id: "{{ vpcdata.vpcs[0].id }}"
+      "tag:Name": Public Subnet 2C
+  register: subnet_id_c
+
+- name: Export Subnet ID for future use
+  debug:
+   var: subnet_id_c.subnets[0].id
+
+
+- name: Gateways - New nat gateway and new EIP 3 of 3 ***These take time***
+  local_action:
+    module: ec2_vpc_nat_gateway
+    state: present
+    subnet_id: "{{ subnet_id_c.subnets[0].id }}"
+    wait: yes
+    region: "{{ aws_region }}"
+    if_exist_do_not_create: true
+  register: nat_gateway_2c
