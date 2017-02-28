@@ -61,31 +61,44 @@ Or have a quick look at
 	https://aws.amazon.com/blogs/apn/getting-started-with-ansible-and-dynamic-amazon-ec2-inventory-management/
 
 
-Playbook Examples
+Playbook Roles
 =================
 
 Pre-Flight:
 ============
+Sets up your host to play with AWS.
+
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t pre-flight -k
 
 VPC:
 ====
+Sets up a single VPC in US-West-2 Region and an Internet-Gateway.
+
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t vpc -k
 
 Network:
 ========
+Sets up six networks. Three for public use and three for private use.
+
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t network -k
 
 Gateways:
 =========
+Sets up NAT Elastic IP's and NAT Gateways.
+
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t gateways -k
 
 Routing-Public:
 ===============
+Sets up a routing table for the public subnets and the Internet Gateway.
+
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t routing-public -k
 
-Routing-Private: (Still a work in progess.  Will need to manually add nat-gateway id's to vars file)
+Routing-Private:
 ================
+Sets up routing tables for each of the private subnets.
+(Still a work in progress.  Will need to manually add nat-gateway id's to vars file)
+
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t routing-private-2a -k
 
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t routing-private-2b -k
@@ -94,24 +107,32 @@ ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t routing-private-2c -
 
 Security Groups:
 ================
+Sets up Basic security groups.
+
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t sec-ssh -k
 
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t sec-http -k
 
-Elastic Load Balancers:
-=======================
+Load Balancers:
+================
+Sets up one Internet-Facing load balancer and one Internal load balancer.
+
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t elb-public -k
 
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t elb-private -k
 
 Launch configuration:
 =====================
+Sets up two basic Launch configurations.
+
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t lc-ssh -k
 
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t lc-http -k
 
 Auto Scaling Group:
 ===================
+Sets up two Auto-scaling groups based on the Launch configurations.
+
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t asg-ssh -k
 
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t asg-http -k
@@ -124,5 +145,5 @@ BSD
 Author Information
 ==================
 
-Adam A. Valenzuela - Brevity is the Soul of Wit
+Adam A. Valenzuela - Brevity is the Soul of Wit.
 # Ansible
