@@ -140,7 +140,7 @@ ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t asg-http -k
 License
 =======
 
-BSD
+MIT
 
 Author Information
 ==================
