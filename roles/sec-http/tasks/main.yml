@@ -1,18 +1,18 @@
 ---
-# tasks file for sec-http
-- name: Sec-http - Gather facts about my VPC
+# tasks file for sec-grp-http
+- name: Sec-Http - Gather facts about my VPC
   local_action:
     module: ec2_vpc_net_facts
     region: "{{ aws_region }}"
     filters:
-      "tag:Name": "{{ vpc_name }}"
+      "tag:Name": Infrastructure VPC
   register: vpcdata
 
 - name: Export VPC ID for future use
   debug:
    var: vpcdata.vpcs[0].id
 
-- name: Sec-http - Inbound HTTP(s) Security Group Access
+- name: Sec-Http - Inbound httpd Security Group Access
   local_action:
     module: ec2_group
     state: present
@@ -40,7 +40,7 @@
         cidr_ip: 0.0.0.0/0
   register: httpd_access
 
-- name: Sec-http - Tag the security group
+- name: Sec-Http - Tag the security group
   local_action:
     module: ec2_tag
     resource: "{{ httpd_access.group_id }}"

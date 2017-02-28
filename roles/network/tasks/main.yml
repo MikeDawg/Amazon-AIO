@@ -1,5 +1,5 @@
 ---
-# Tasks for network/subnet deployment in my VPC
+# Tasks for fact gathering and subnet deployment my VPC
 - name: Network - Gather facts about my VPC
   local_action:
     module: ec2_vpc_net_facts

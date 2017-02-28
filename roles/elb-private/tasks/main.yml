@@ -1,6 +1,6 @@
 ---
 # tasks New AWS Elastic Load Balancer
-- name: ELB-Private - Gather facts about my VPC
+- name: gathering about my VPC
   local_action:
     module: ec2_vpc_net_facts
     region: "{{ aws_region }}"
@@ -8,11 +8,11 @@
       "tag:Name": "{{ vpc_name }}"
   register: vpcdata
 
-- name: Export VPC ID for future use
+- name: Printing the VPC ID for future use
   debug:
    var: vpcdata.vpcs[0].id
 
-- name: ELB-Private - Gather facts about private subnet 2a
+- name: gathering about private subnet 2a
   local_action:
     module: ec2_vpc_subnet_facts
     region: "{{ aws_region }}"
@@ -21,11 +21,11 @@
       "tag:Name": Private Subnet 2A
   register: subnet_pri_a
 
-- name: Export Subnet ID for future use
+- name: Printing the Subnet ID for future use
   debug:
    var: subnet_pri_a.subnets[0].id
 
-- name: ELB-Private - Gather facts about private subnet 2b
+- name: gathering about private subnet 2b
   local_action:
     module: ec2_vpc_subnet_facts
     region: "{{ aws_region }}"
@@ -34,11 +34,11 @@
       "tag:Name": Private Subnet 2B
   register: subnet_pri_b
 
-- name: Export Subnet ID for future use
+- name: Printing the Subnet ID for future use
   debug:
    var: subnet_pri_b.subnets[0].id
 
-- name: ELB-Private - Gather facts about public subnet 2c
+- name: gathering about public subnet 2c
   local_action:
     module: ec2_vpc_subnet_facts
     region: "{{ aws_region }}"
@@ -47,12 +47,12 @@
       "tag:Name": Public Subnet 2C
   register: subnet_pri_c
 
-- name: Export Subnet ID for future use
+- name: Printing the Subnet ID for future use
   debug:
    var: subnet_pri_c.subnets[0].id
 
 
-- name: ELB-Private - New internal Load Balancer
+- name: ELB-private - Creating Private Load Balancer
   local_action:
     module: ec2_elb_lb
     name: "Private-ELB"
@@ -80,4 +80,4 @@
     tags:
       Name: Private-ELB
       Environment: Infrastructure
-      Service: Internal Load Balancing
+      Service: Private Load Balancing

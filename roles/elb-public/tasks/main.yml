@@ -1,6 +1,6 @@
 ---
 # tasks New AWS Elastic Load Balancer
-- name: ELB-Public - Gather facts about my VPC
+- name: gathering about my VPC
   local_action:
     module: ec2_vpc_net_facts
     region: "{{ aws_region }}"
@@ -8,11 +8,11 @@
       "tag:Name": "{{ vpc_name }}"
   register: vpcdata
 
-- name: Export VPC ID for future use
+- name: Printing the VPC ID for future use
   debug:
    var: vpcdata.vpcs[0].id
 
-- name: ELB-Public - Gather facts about public subnet 2a
+- name: gathering about public subnet 2a
   local_action:
     module: ec2_vpc_subnet_facts
     region: "{{ aws_region }}"
@@ -21,11 +21,11 @@
       "tag:Name": Public Subnet 2A
   register: subnet_id_a
 
-- name: Export Subnet ID for future use
+- name: Printing the Subnet ID for future use
   debug:
    var: subnet_id_a.subnets[0].id
 
-- name: ELB-Public - Gather facts about public subnet 2b
+- name: gathering about public subnet 2b
   local_action:
     module: ec2_vpc_subnet_facts
     region: "{{ aws_region }}"
@@ -34,11 +34,11 @@
       "tag:Name": Public Subnet 2B
   register: subnet_id_b
 
-- name: Export Subnet ID for future use
+- name: Printing the Subnet ID for future use
   debug:
    var: subnet_id_b.subnets[0].id
 
-- name: ELB-Public - Gather facts about public subnet 2c
+- name: gathering about public subnet 2c
   local_action:
     module: ec2_vpc_subnet_facts
     region: "{{ aws_region }}"
@@ -47,11 +47,11 @@
       "tag:Name": Public Subnet 2C
   register: subnet_id_c
 
-- name: Export Subnet ID for future use
+- name: Printing the Subnet ID for future use
   debug:
    var: subnet_id_c.subnets[0].id
 
-- name: ELB-Public - New Internet-Facing Load Balancer
+- name: ELB - Creating Internet Facing Load Balancer
   local_action:
     module: ec2_elb_lb
     name: "Public-ELB"

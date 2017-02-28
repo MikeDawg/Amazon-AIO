@@ -1,6 +1,6 @@
 ---
 # Tasks for routing-public
-- name: Routing - Gather facts about my VPC
+- name: Routing-Public - Gather facts about my VPC
   local_action:
     module: ec2_vpc_net_facts
     region: "{{ aws_region }}"
@@ -12,15 +12,7 @@
   debug:
    var: vpcdata.vpcs[0].id
 
-- name: Routing - New Inernet gateway
-  local_action:
-    module: ec2_vpc_igw
-    state: present
-    region: "{{ aws_region }}"
-    vpc_id:  "{{ vpcdata.vpcs[0].id }}"
-  register: igw
-
-- name: Routing - Gather facts Internet Gateways
+- name: Routing-Public - Gather facts Internet Gateways
   local_action:
     module: ec2_vpc_igw_facts
     region: "{{ aws_region }}"
@@ -30,7 +22,7 @@
   debug:
    var: igw_facts.internet_gateways[0].internet_gateway_id
 
-- name: Routing - Gather facts about public subnets
+- name: Routing-Public - Gather facts about public subnets
   local_action:
     module: ec2_vpc_subnet_facts
     region: "{{ aws_region }}"
@@ -46,7 +38,7 @@
 - set_fact:
     subnet_ids: "{{ public_subnet_facts.results|map(attribute='subnets.0.id')|list }}"
 
-- name: Routing - New routing table for public subnets
+- name: Routing-Public - New routing table for public subnets
   local_action:
     module: ec2_vpc_route_table
     vpc_id: "{{ vpcdata.vpcs[0].id }}"

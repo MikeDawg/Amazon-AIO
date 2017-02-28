@@ -5,12 +5,22 @@
     module: ec2_vpc_net_facts
     region: "{{ aws_region }}"
     filters:
-      "tag:Name": Infrastructure VPC
+      "tag:Name": "{{ vpc_name }}"
   register: vpcdata
 
 - name: Export VPC ID for future use
   debug:
    var: vpcdata.vpcs[0].id
+
+- name: Gateways - Gather facts Internet Gateways
+  local_action:
+    module: ec2_vpc_igw_facts
+    region: "{{ aws_region }}"
+  register: igw_facts
+
+- name: Export IGW ID for future use
+  debug:
+   var: igw_facts.internet_gateways[0].internet_gateway_id
 
 - name: Gateways - Gather facts about public subnet 2a
   local_action:
@@ -25,12 +35,12 @@
   debug:
    var: subnet_id_a.subnets[0].id
 
-- name: Gateways - NAT gateway and new EIP 1 of 3 ***These take time***
+- name: Gateways - NAT Gateway and new EIP 1 of 3 ***These take time***
   local_action:
     module: ec2_vpc_nat_gateway
     state: present
     subnet_id: "{{ subnet_id_a.subnets[0].id }}"
-    wait: yes
+    wait: no
     region: "{{ aws_region }}"
     if_exist_do_not_create: true
   register: nat_gateway_2a
@@ -48,13 +58,12 @@
   debug:
    var: subnet_id_b.subnets[0].id
 
-
-- name: Gateways - NAT gateway and new EIP 2 of 3 ***These take time***
+- name: Gateways - NAT Gateway and new EIP 2 of 3 ***These take time***
   local_action:
     module: ec2_vpc_nat_gateway
     state: present
     subnet_id: "{{ subnet_id_b.subnets[0].id }}"
-    wait: yes
+    wait: no
     region: "{{ aws_region }}"
     if_exist_do_not_create: true
   register: nat_gateway_2b
@@ -72,8 +81,7 @@
   debug:
    var: subnet_id_c.subnets[0].id
 
-
-- name: Gateways - New nat gateway and new EIP 3 of 3 ***These take time***
+- name: Gateways - NAT Gateway and new EIP 3 of 3 ***These take time***
   local_action:
     module: ec2_vpc_nat_gateway
     state: present

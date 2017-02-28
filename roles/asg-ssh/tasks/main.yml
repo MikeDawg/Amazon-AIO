@@ -1,6 +1,6 @@
 ---
 # tasks file for asg-ssh
-- name: ASG-SSH - Gather facts about my VPC
+- name: Asg-Ssh - Gather facts about my VPC
   local_action:
     module: ec2_vpc_net_facts
     region: "{{ aws_region }}"
@@ -12,7 +12,7 @@
   debug:
    var: vpcdata.vpcs[0].id
 
-- name: ASG-SSH - Gather facts about security group
+- name: Asg-Ssh - Gather facts about Security Group
   local_action:
     module: ec2_vpc_subnet_facts
     region: "{{ aws_region }}"

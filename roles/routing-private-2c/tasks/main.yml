@@ -1,18 +1,18 @@
 ---
 # Tasks for routing-private
-- name: Routing - Gather facts about my VPC
+- name: Routing-Private - Gather facts about my VPC
   local_action:
     module: ec2_vpc_net_facts
     region: "{{ aws_region }}"
     filters:
-      "tag:Name": "{{ vpc_name }}"
+      "tag:Name": Infrastructure VPC
   register: vpcdata
 
 - name: Export VPC ID for future use
   debug:
    var: vpcdata.vpcs[0].id
 
-- name: Routing - Gather Facts about Public subnet 2c
+- name: Routing-Private - Gather Facts about Public subnet 2c
   local_action:
     module: ec2_vpc_subnet_facts
     region: "{{ aws_region }}"
@@ -25,7 +25,7 @@
   debug:
    var: public_subnet_2c.subnets[0].id
 
-- name: Routing - Gather Facts about Private subnet 2c
+- name: Routing-Private - Gather Facts about Private subnet 2c
   local_action:
     module: ec2_vpc_subnet_facts
     region: "{{ aws_region }}"
@@ -38,7 +38,7 @@
   debug:
    var: private_subnet_2c.subnets[0].id
 
-- name: Routing - New routing table for private subnet 2C
+- name: Routing-Private - New routing table for private subnet 2C
   local_action:
     module: ec2_vpc_route_table
     vpc_id: "{{ vpcdata.vpcs[0].id }}"

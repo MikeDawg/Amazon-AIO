@@ -1,6 +1,6 @@
 ---
-# tasks file for lc-ssh
-- name: LC-SSH - Gather facts about my VPC
+# tasks file for vpc-lc-ssh
+- name: Lc-Ssh - Gather facts about my VPC
   local_action:
     module: ec2_vpc_net_facts
     region: "{{ aws_region }}"
@@ -12,20 +12,20 @@
   debug:
    var: vpcdata.vpcs[0].id
 
-- name: LC-SSH - Gather facts about SSH_Allow security group
+- name: Lc-Ssh - Gather facts about Security Group
   local_action:
     module: ec2_group_facts
     region: "{{ aws_region }}"
     filters:
       vpc-id: "{{ vpcdata.vpcs[0].id }}"
-      group-name: SSH_Allow
+      group-name: HTTP_Allow
   register: group_id
 
-- name: Export - Security group by group_id
+- name: Export Security Group by group_id
   debug:
    var: group_id.security_groups[0].group_id
 
-- name: LC-SSH New Launch Configuration for SSH Access
+- name: Lc-Ssh - New Launch Configuration for AMI w/ SSH Access
   local_action:
     module: ec2_lc
     state: present

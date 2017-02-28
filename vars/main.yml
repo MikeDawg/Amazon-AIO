@@ -5,7 +5,7 @@ vpc_name:
 cidr_block: 10.15.0.0/16
 instance_type: t2.micro
 ami_image: ami-f173cc91 # Amazon-Linux
-aws_region: us-west-2
+aws_region: us-west-2 # AWS Oregon Region
 gateway_2a:
 gateway_2b:
 gateway_2c:
