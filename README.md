@@ -78,19 +78,19 @@ ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t vpc -k
 
 Network:
 ========
-Sets up six networks. Three for public use and three for private use.
+Sets up six networks. Three tagged for public and three tagged for private.
 
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t network -k
 
 Gateways:
 =========
-Sets up NAT Elastic IP's and NAT Gateways.
+Sets up Elastic IP's and NAT Gateways.
 
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t gateways -k
 
 Routing-Public:
 ===============
-Sets up a routing table for the public subnets and the Internet Gateway.
+Sets up a routing table for the public subnets with the VPC's Internet Gateway.
 
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t routing-public -k
 
