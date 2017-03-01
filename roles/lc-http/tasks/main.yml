@@ -1,6 +1,6 @@
 ---
 # tasks file for vpc-lc-http
-- name: Lc-Http - Gather facts about my VPC
+- name: Gather facts about my VPC
   local_action:
     module: ec2_vpc_net_facts
     region: "{{ aws_region }}"
@@ -12,7 +12,7 @@
   debug:
    var: vpcdata.vpcs[0].id
 
-- name: Lc-Http - Gather facts about Security Group
+- name: Gather facts about HTTP_Allow security group
   local_action:
     module: ec2_group_facts
     region: "{{ aws_region }}"
@@ -21,11 +21,11 @@
       group-name: HTTP_Allow
   register: group_id
 
-- name: Export Security Group by group_id
+- name: Pull Security group by group_id
   debug:
    var: group_id.security_groups[0].group_id
 
-- name: Lc-Http - New Launch Configuration for AMI w/ http and ssh Access
+- name: Setting up a new Launch Configuration
   local_action:
     module: ec2_lc
     state: present

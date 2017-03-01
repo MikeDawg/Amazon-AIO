@@ -1,6 +1,6 @@
 ---
 # tasks file for asg-ssh
-- name: Asg-Ssh - Gather facts about my VPC
+- name: Gather facts about my VPC
   local_action:
     module: ec2_vpc_net_facts
     region: "{{ aws_region }}"
@@ -12,7 +12,7 @@
   debug:
    var: vpcdata.vpcs[0].id
 
-- name: Asg-Ssh - Gather facts about Security Group
+- name: Gather facts about HTTP_Allow security group
   local_action:
     module: ec2_vpc_subnet_facts
     region: "{{ aws_region }}"
@@ -41,3 +41,7 @@
     desired_capacity: 1
     region: "{{ aws_region }}"
     vpc_zone_identifier: "{{ subnet_facts.results|map(attribute='subnets.0.id')|list }}"
+    tags:
+      - Name: Bastion
+      - Environment: "{{ vpc_name }}"
+      - Service: Ingress

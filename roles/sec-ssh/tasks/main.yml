@@ -1,6 +1,6 @@
 ---
 # tasks file for sec-grp-ssh
-- name: Sec-Ssh - Gather facts about my VPC
+- name: gathering about my VPC
   local_action:
     module: ec2_vpc_net_facts
     region: "{{ aws_region }}"
@@ -12,7 +12,7 @@
   debug:
    var: vpcdata.vpcs[0].id
 
-- name: Sec-Ssh - Inbound SSH Security Group Access
+- name: Setting up Inbound SSH Security Group Access
   local_action:
     module: ec2_group
     state: present
@@ -32,7 +32,7 @@
         cidr_ip: 0.0.0.0/0
   register: security_ssh
 
-- name: Sec-Ssh - Tag the security group
+- name: Tag the SSH Allow security group with a name
   local_action:
     module: ec2_tag
     resource: "{{ security_ssh.group_id }}"

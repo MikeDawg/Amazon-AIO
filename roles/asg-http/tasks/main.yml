@@ -1,6 +1,6 @@
 ---
 # tasks file for asg-http
-- name: Asg-Http - Gather facts about my VPC
+- name: Asg-http - Gather facts about my VPC
   local_action:
     module: ec2_vpc_net_facts
     region: "{{ aws_region }}"
@@ -12,7 +12,7 @@
   debug:
    var: vpcdata.vpcs[0].id
 
-- name: Asg-Http - Gather facts about private subnets
+- name: Asg-http - Gather facts about private subnets
   local_action:
     module: ec2_vpc_subnet_facts
     region: "{{ aws_region }}"
@@ -28,7 +28,7 @@
 - set_fact:
     subnet_ids: "{{ subnet_facts.results|map(attribute='subnets.0.id')|list }}"
 
-- name: Asg-Http - Setting up an Auto Scaling Group
+- name: Asg-http - Setting up an Auto Scaling Group
   local_action:
     module: ec2_asg
     name: httpd-asg
@@ -42,3 +42,7 @@
     desired_capacity: 3
     region: "{{ aws_region }}"
     vpc_zone_identifier: "{{ subnet_facts.results|map(attribute='subnets.0.id')|list }}"
+    tags:
+      - Name: MeetUp-WWW
+      - Environment: "{{ vpc_name }}"
+      - Serivce: Web
