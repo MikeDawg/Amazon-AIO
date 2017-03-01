@@ -12,7 +12,7 @@
   debug:
    var: vpcdata.vpcs[0].id
 
-- name: Gather facts about HTTP_Allow security group
+- name: Gather facts about Subnets
   local_action:
     module: ec2_vpc_subnet_facts
     region: "{{ aws_region }}"
@@ -31,8 +31,8 @@
 - name: ASG-SSH - Setting up an Auto Scaling Group
   local_action:
     module: ec2_asg
-    name: ssh-asg
-    launch_config_name: "{{ ssh_lc_name }}"
+    name: bastion-asg
+    launch_config_name: "{{ bastion_lc_name }}"
     health_check_period: 600
     health_check_type: EC2
     replace_all_instances: yes

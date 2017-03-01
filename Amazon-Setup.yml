@@ -101,7 +101,7 @@
 
 - hosts: localhost
   gather_facts: false
-  name: New AWS VPC Security Group Setup w/ ssh and http(s) Access
+  name: New AWS VPC Security Group Setup w/ ssh and web Access
   become: no
 
   vars_files:
@@ -112,7 +112,7 @@
 
 - hosts: localhost
   gather_facts: false
-  name: New AWS Internet-Facing Elastic Load Balancer
+  name: New AWS Public Elastic Load Balancer
   become: no
 
   vars_files:
@@ -123,7 +123,7 @@
 
 - hosts: localhost
   gather_facts: false
-  name: New AWS Internal Elastic Load Balancer
+  name: New AWS Private Elastic Load Balancer
   become: no
 
   vars_files:
@@ -142,7 +142,7 @@
     - vars/main.yml
 
   roles:
-    - { role: vpc-lc-ssh, tags: vpc-lc-ssh }
+    - { role: lc-ssh, tags: lc-ssh }
 
 - hosts: localhost
   gather_facts: false
@@ -153,7 +153,7 @@
     - vars/main.yml
 
   roles:
-    - { role: vpc-lc-http, tags: vpc-lc-http }
+    - { role: lc-http, tags: lc-http }
 
 
 - hosts: localhost

@@ -80,4 +80,4 @@
     tags:
       Name: Private-ELB
       Environment: Infrastructure
-      Service: Private Load Balancing
+      Service: Internal Load Balancing

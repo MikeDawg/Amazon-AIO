@@ -5,7 +5,7 @@
     module: ec2_vpc_net_facts
     region: "{{ aws_region }}"
     filters:
-      "tag:Name": Infrastructure VPC
+      "tag:Name": "{{ vpc_name }}"
   register: vpcdata
 
 - name: Printing the VPC ID for future use
