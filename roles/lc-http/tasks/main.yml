@@ -41,6 +41,6 @@
       device_type: gp2
       iops: 3000
       delete_on_termination: true
-    user_data: "{{ lookup('file', '/home/adam.valenzuela/bitbucket/ansible/ansible-amazon-all-in-one/vars/user-data.yml') }}"
+    user_data: "{{ lookup('file', '/path/to/vars/http-user-data.yml') }}"
     assign_public_ip: no
   register: http_launch_config
