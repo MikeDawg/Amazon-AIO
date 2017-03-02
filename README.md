@@ -97,7 +97,6 @@ ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t routing-public -k
 Routing-Private:
 ================
 Sets up routing tables for each of the private subnets.
-(Still a work in progress.  Will need to manually add nat-gateway id's to vars file)
 
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t routing-private-2a -k
 

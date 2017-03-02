@@ -38,6 +38,19 @@
   debug:
    var: private_subnet_2b.subnets[0].id
 
+- name: HammerRouting - Gather Facts about NAT gateway in 2B
+ local_action:
+   module: ec2_vpc_nat_gateway_facts
+   region: "{{ aws_region}}"
+   filters:
+     subnet-id: "{{ public_subnet_2b.subnets[0].id }}"
+     state: ['available']
+ register: nat_gateway_2b
+
+- name: Export NAT Gateway ID for future use
+  debug:
+   var: nat_gateway_2b.result[0].NatGatewayId
+
 - name: Routing-Private - New routing table for private subnet 2B
   local_action:
     module: ec2_vpc_route_table
@@ -48,5 +61,5 @@
     subnets: "{{ private_subnet_2b.subnets[0].id }}"
     routes:
       - dest: 0.0.0.0/0
-        gateway_id: "{{ gateway_2b }}"
+        gateway_id: "{{ nat_gateway_2b.result[0].NatGatewayId }}"
   register: private_route_table_2b
