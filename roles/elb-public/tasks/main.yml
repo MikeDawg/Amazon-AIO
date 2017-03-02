@@ -51,7 +51,7 @@
   debug:
    var: subnet_id_c.subnets[0].id
 
-- name: ELB - Creating Internet Facing Load Balancer
+- name: ELB - Creating Internet-Facing Load Balancer
   local_action:
     module: ec2_elb_lb
     name: "Public-ELB"

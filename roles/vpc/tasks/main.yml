@@ -12,23 +12,3 @@
       Services: VPC
     tenancy: default
   register: vpc
-
-- name: VPC - Gather facts about my VPC
-  local_action:
-    module: ec2_vpc_net_facts
-    region: "{{ aws_region }}"
-    filters:
-      "tag:Name": "{{ vpc_name }}"
-  register: vpcdata
-
-- name: Export VPC ID for future use
-  debug:
-   var: vpcdata.vpcs[0].id
-
-- name: VPC - New Inernet gateway
-  local_action:
-    module: ec2_vpc_igw
-    state: present
-    region: "{{ aws_region }}"
-    vpc_id:  "{{ vpcdata.vpcs[0].id }}"
-  register: igw

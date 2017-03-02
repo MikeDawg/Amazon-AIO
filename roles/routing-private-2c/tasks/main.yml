@@ -38,7 +38,7 @@
   debug:
    var: private_subnet_2c.subnets[0].id
 
-- name: HammerRouting - Gather Facts about NAT gateway in 2C
+- name: Routing-Private - Gather Facts about NAT gateway in 2C
   local_action:
     module: ec2_vpc_nat_gateway_facts
     region: "{{ aws_region}}"
@@ -62,5 +62,5 @@
     subnets: "{{ private_subnet_2c.subnets[0].id }}"
     routes:
       - dest: 0.0.0.0/0
-        gateway_id: "{{ gateway_2c }}"
+        gateway_id: "{{ nat_gateway_2c.result[0].NatGatewayId }}"
   register: private_route_table_2c

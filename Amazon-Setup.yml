@@ -177,14 +177,3 @@
 
   roles:
     - { role: asg-http, tags: asg-http }
-
-- hosts: localhost
-  gather_facts: false
-  name: Role for random module testing
-  become: no
-
-  vars_files:
-    - vars/main.yml
-
-  roles:
-    - { role: test, tags: test }

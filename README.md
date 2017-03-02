@@ -2,7 +2,7 @@ AMAZON-AIO (All in one)
 =========
 WORK IN PROGRESS!
 
-A Training playbook to help get you started in AWS with Ansible.  This playbook in its current state (w/ a populated vars file) will deploy the following:
+A Training playbook to help get you started in AWS with Ansible.  These roles are designed to be run one at a time so see the progression of whats developing in AWS.  This playbook in its current state (w/ a populated vars file) will deploy the following:
 
 	VPC
 	Network(s)

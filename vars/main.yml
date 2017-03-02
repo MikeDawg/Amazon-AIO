@@ -1,7 +1,7 @@
 ---
 # vars file for amazon-aio
-key_name: 
-vpc_name: 
+key_name:
+vpc_name:
 cidr_block: 10.15.0.0/16
 instance_type: t2.micro # Instance Type
 ami_image: ami-f173cc91 # Amazon-Linux

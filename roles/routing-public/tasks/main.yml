@@ -20,7 +20,7 @@
 
 - name: Export IGW ID for future use
   debug:
-   var: igw_facts.internet_gateways[0].internet_gateway_id
+   var: igw_facts.internet_gateways[1].internet_gateway_id
 
 - name: Routing-Public - Gather facts about public subnets
   local_action:
@@ -48,5 +48,5 @@
     subnets: "{{ public_subnet_facts.results|map(attribute='subnets.0.id')|list }}"
     routes:
       - dest: 0.0.0.0/0
-        gateway_id: "{{ igw_facts.internet_gateways[0].internet_gateway_id }}"
+        gateway_id: "{{ igw_facts.internet_gateways[1].internet_gateway_id }}"
   register: public_route_table
