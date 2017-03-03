@@ -18,7 +18,7 @@
     region: "{{ aws_region }}"
     filters:
       vpc-id: "{{ vpcdata.vpcs[0].id }}"
-      group-name: HTTP_Allow
+      group-name: SSH_Allow
   register: group_id
 
 - name: Pull Security group by group_id
@@ -41,6 +41,6 @@
       device_type: gp2
       iops: 3000
       delete_on_termination: true
-      user_data: "{{ lookup('file', '/path/to/your/chosen/user-data') }}"
+    user_data: "{{ lookup('file', '/home/adam.valenzuela/bitbucket/ansible/ansible-amazon-all-in-one/vars/ssh-user-data') }}"
     assign_public_ip: yes
   register: bastion_launch_config

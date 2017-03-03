@@ -1,8 +1,8 @@
 AMAZON-AIO (All in one)
 =========
-WORK IN PROGRESS!
 
-A Training playbook to help get you started in AWS with Ansible.  These roles are designed to be run one at a time so see the progression of whats developing in AWS.  This playbook in its current state (w/ a populated vars file) will deploy the following:
+
+This is a Training playbook to help get you started in AWS with Ansible.  These roles are designed to be run one at a time so see the progression of whats developing in AWS.  This playbook in its current state (w/ a populated vars file) will deploy the following:
 
 	VPC
 	Network(s)
@@ -72,19 +72,19 @@ ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t pre-flight -k
 
 VPC:
 ====
-Sets up a single VPC in US-West-2 Region and an Internet-Gateway.
+Sets up a single VPC in US-West-2 Region.
 
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t vpc -k
 
 Network:
 ========
-Sets up six networks. Three tagged for public and three tagged for private.
+Sets up six subnets. Three tagged for public and three tagged for private.
 
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t network -k
 
 Gateways:
 =========
-Sets up Elastic IP's and NAT Gateways.
+Sets up an Internet Gateway, 3x Elastic IP's for NAT Gateways.
 
 ansible-playbook -i inventory/local.yml Amazon-Setup.yml -t gateways -k
 
