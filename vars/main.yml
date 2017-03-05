@@ -6,3 +6,9 @@ cidr_block: 10.15.0.0/16
 instance_type: t2.micro # Instance Type
 ami_image: ami-f173cc91 # Amazon-Linux
 aws_region: us-west-2 # AWS Oregon Region
+public_subnet_a: 10.15.0.0/21
+public_subnet_b: 10.15.8.0/21
+public_subnet_c: 10.15.16.0/21
+private_subnet_a: 10.15.160.0/19
+private_subnet_b: 10.15.192.0/19
+private_subnet_c: 10.15.224.0/19
