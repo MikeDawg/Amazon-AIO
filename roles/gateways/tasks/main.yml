@@ -12,7 +12,7 @@
   debug:
    var: vpcdata.vpcs[0].id
 
-- name: VPC - New Inernet gateway
+- name: VPC - New Internet gateway
   local_action:
     module: ec2_vpc_igw
     state: present
