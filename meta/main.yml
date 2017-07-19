@@ -14,10 +14,10 @@ galaxy_info:
   - Training
   - VPC
   - ec2
-  - Auto-scaling
-  - Launch-Configuration
-  - Elastic Load Balancers
-  - Security Groups
+  - AutoScaling
+  - LaunchConfiguration
+  - ElasticLoadBalancers
+  - SecurityGroups
 
 
 dependencies:
