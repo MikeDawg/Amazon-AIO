@@ -72,8 +72,8 @@
         ping_protocol: http
         ping_port: 80
         ping_path: "/index.html"
-        response_timeout: 60
-        interval: 120
+        response_timeout: 10
+        interval: 30
         unhealthy_threshold: 3
         healthy_threshold: 3
     tags:

@@ -41,6 +41,6 @@
       device_type: gp2
       iops: 3000
       delete_on_termination: true
-    user_data: "{{ lookup('file', '/home/adam.valenzuela/bitbucket/ansible/ansible-amazon-all-in-one/vars/ssh-user-data') }}"
+    user_data_path: "{{ aws_lc_config_ssh }}"
     assign_public_ip: yes
   register: bastion_launch_config

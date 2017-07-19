@@ -1,28 +1,23 @@
 ---
-# tasks file for ami-new
+# tasks file for pre-flight
  - name: pre-flight - Modify selinux for security
    selinux: policy=targeted state=permissive
 
  - name: pre-flight - Load system with needed packages for Ansible/AWS deployments
-   dnf: name={{item}} state=present disable_gpg_check=yes
+   yum: name={{item}} state=present disable_gpg_check=yes
    with_items:
-     #- epel-release
-     - python-dnf
-     - python-boto
+     - epel-release
      - python-pip
      - libselinux-python
 
  - name: pre-flight - PIP system with needed packages for Ansible/AWS Commands
    pip: name={{item}} state=present
    with_items:
-     - paramiko
-     - PyYAML
-     - jinja2
-     - httplib2
-     - boto
-     - boto3
      - saws
      - awscli
+     - boto
+     - botocore
+     - boto3
 
  - name: pre-flight - Grab and source EC2.py for Dynamic Inventory
    get_url:

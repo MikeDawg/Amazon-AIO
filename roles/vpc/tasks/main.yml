@@ -6,6 +6,7 @@
     name: "{{ vpc_name }}"
     cidr_block: "{{ cidr_block }}"
     region: "{{ aws_region }}"
+    dns_support: "{{ aws_dns_support }}"
     tags:
       Name: "{{ vpc_name }}"
       Environment: Core Services

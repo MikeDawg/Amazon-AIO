@@ -1,14 +1,17 @@
 ---
 # vars file for amazon-aio
-key_name:
-vpc_name:
-cidr_block: 10.**.0.0/16
+key_name: NameofExistingKey
+vpc_name: NameofVPC
+cidr_block: 10.10.0.0/16
 instance_type: t2.micro # Instance Type
 ami_image: ami-f173cc91 # Amazon-Linux
 aws_region: us-west-2 # AWS Oregon Region
-public_subnet_a: 10.**.0.0/21
-public_subnet_b: 10.**.8.0/21
-public_subnet_c: 10.**.16.0/21
-private_subnet_a: 10.**.160.0/19
-private_subnet_b: 10.**.192.0/19
-private_subnet_c: 10.**.224.0/19
+aws_dns_support: yes | no (pick one)
+public_subnet_a: 10.10.0.0/21
+public_subnet_b: 10.10.8.0/21
+public_subnet_c: 10.10.16.0/21
+private_subnet_a: 10.10.160.0/19
+private_subnet_b: 10.10.192.0/19
+private_subnet_c: 10.10.224.0/19
+aws_lc_config_ssh: /path/to/playbook/var/ssh-user-data.yml
+aws_lc_config_http: /path/to/playbook/vars/http-user-data.yml

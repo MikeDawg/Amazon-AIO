@@ -7,7 +7,7 @@ This is a Training playbook to help get you started in AWS with Ansible.  These 
 	VPC
 	Network(s)
 	Gateway(s)
-	Routing
+	Routing Table(s)
 	Security Group(s)
 	Load Balancer(s)
 	Launch configuration(s)
@@ -17,25 +17,26 @@ This is a Training playbook to help get you started in AWS with Ansible.  These 
 Requirements
 ============
 
-You will need an AWS account
-You will need Acces Keys
-You will need the following packages installed on the box you plan to run this playbook from:
+You will need an AWS account; You will need AWS Access and secret Keys exported or setup via boto.
+The "pre-flight" role will help you install the needed packages on the box you plan to run this playbook from:
 
-	python
-	python-dnf
+YUM
+  epel-release
 	python-pip
-	python-boto
-	paramiko
-	PyYAML
-	jinja2
-	httplib2
-	libselinx-python.
+	libselinx-python
 
+PIP
+  awscli
+	saws
+	boto
+	botocore
+	boto3
 
 Variables
 =========
 
-Variables are set to be called from the var/main.yml file.  The following var's are being called.  Please change as you see fit.
+Variables are set to be called from the var/main.yml file.  The following var's will need to be set as they are called multiple times.
+Please change as you see fit.
 
 	key_name:
 	vpc_name:
@@ -43,12 +44,15 @@ Variables are set to be called from the var/main.yml file.  The following var's 
 	instance_type:
 	ami_image:
 	aws_region:
+	aws_dns_support:
 	availability_zones:
 	gateway_2a:
 	gateway_2b:
 	gateway_2c:
 	ssh_lc_name:
 	http_lc_name:
+	aws_lc_config_ssh:
+	aws_lc_config_http:
 
 Dependencies
 ============
